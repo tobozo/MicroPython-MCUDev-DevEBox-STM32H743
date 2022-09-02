@@ -10,7 +10,7 @@ jobs:
       - name: Checkout MicroPython
         uses: actions/checkout@v3
         with:
-          repository: 'https://github.com/micropython/micropython.git'
+          repository: micropython/micropython
           path: micropython
           submodules: recursive
 
