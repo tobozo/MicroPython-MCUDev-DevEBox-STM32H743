@@ -18,17 +18,6 @@ jobs:
         with:
           path: MicroPython-MCUDev-DevEBox-STM32H743
 
-      - name: Cache MicroPython
-        uses: actions/cache@v3
-        env:
-          cache-name: cache-micropython
-        with:
-          path: micropython
-          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-${{ env.cache-name }}-
-            ${{ runner.os }}-
-
       - name: Copy MCUDEV_DEVEBOX_H743 to micropython/ports/stm32/boards
         run: |
           rm -rf micropython/ports/stm32/boards/MCUDEV_DEVEBOX_H743
@@ -38,7 +27,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install -y build-essential libffi-dev pkg-config
-          sudo apt install -y *arm-none-eabi*
+          sudo apt install -y gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi
           sudo apt install -y python3
 
       - name: Build
