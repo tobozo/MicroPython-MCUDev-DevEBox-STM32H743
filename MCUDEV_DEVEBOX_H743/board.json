@@ -1,0 +1,13 @@
+{
+    "deploy": [
+        "../deploy.md"
+    ],
+    "docs": "",
+    "features": [],
+    "images": [],
+    "mcu": "STM32H743VIT6",
+    "product": "MCUDev DevEBox STM32H743",
+    "thumbnail": "",
+    "url": "https://mcudev.taobao.com",
+    "vendor": "MCUDev"
+}

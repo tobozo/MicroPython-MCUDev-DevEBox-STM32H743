@@ -1,0 +1,41 @@
+name: Build MicroPython
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout MicroPython
+        uses: actions/checkout@v3
+        with:
+          repository: 'https://github.com/micropython/micropython.git'
+          path: micropython
+          submodules: recursive
+
+      - name: Checkout MicroPython MCUDev DevEBox STM32H743
+        uses: actions/checkout@v3
+        with:
+          path: MicroPython-MCUDev-DevEBox-STM32H743
+
+      - name: Copy MicroPython-MCUDev-DevEBox-STM32H743 to micropython/ports/stm32/boards
+        run: cp -r MicroPython-MCUDev-DevEBox-STM32H743/MCUDEV_DEVEBOX_H743 /ports/stm32/boards
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y build-essential libffi-dev pkg-config
+          sudo apt install -y *arm-none-eabi*
+          sudo apt install -y python3
+
+      - name: Build
+        run: |
+          cd micropython/ports/stm32
+          make BOARD=MCUDEV_DEVEBOX_H743
+
+      - name: Upload firmware
+        uses: actions/upload-artifact@v3
+        with:
+          name: firmware
+          path: micropython/ports/stm32/build-MCUDEV_DEVEBOX_H743/firmware*
