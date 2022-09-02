@@ -19,8 +19,21 @@ jobs:
         with:
           path: MicroPython-MCUDev-DevEBox-STM32H743
 
-      - name: Copy MicroPython-MCUDev-DevEBox-STM32H743 to micropython/ports/stm32/boards
-        run: cp -r MicroPython-MCUDev-DevEBox-STM32H743/MCUDEV_DEVEBOX_H743 /ports/stm32/boards
+      - name: Cache MicroPython
+        uses: actions/cache@v3
+        env:
+          cache-name: cache-micropython
+        with:
+          path: micropython
+          key: ${{ runner.os }}-${{ env.cache-name }}-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-${{ env.cache-name }}-
+            ${{ runner.os }}-
+
+      - name: Copy MCUDEV_DEVEBOX_H743 to micropython/ports/stm32/boards
+        run: |
+          rm -rf micropython/ports/stm32/boards/MCUDEV_DEVEBOX_H743
+          cp -r MicroPython-MCUDev-DevEBox-STM32H743/MCUDEV_DEVEBOX_H743 micropython/ports/stm32/boards
 
       - name: Install dependencies
         run: |
