@@ -8,7 +8,7 @@ This firmware enables these features by default:
 
 + 8MB exFAT filesystem on [W25Q64JV](https://www.winbond.com/hq/product/code-storage-flash-memory/serial-nor-flash/index.html?__locale=en&partNo=W25Q64JV), Quad SPI.
 
-+ Micropython REPL via USB CDC.
++ MicroPython REPL via USB CDC.
 
 + UART:
   + UART1: TX/RX on PA9/PA10.
@@ -41,7 +41,7 @@ Tested on Ubuntu 22.04.
    sudo apt install -y build-essential git libffi-dev pkg-config gcc-arm-none-eabi binutils-arm-none-eabi libnewlib-arm-none-eabi python3
    ```
 
-2. Check out MicroPython and this repository:
+2. Clone MicroPython and this repository:
 
    ```bash
    git clone https://github.com/micropython/micropython.git
